@@ -69,20 +69,15 @@
                                                 <th>No</th>
                                                 <th>Nama Kepala Keluarga</th>
                                                 <th>RT</th>
-                                                <th>Beras (Kg)</th>
-                                                <th>Aksi</th>
+                                                <th>Beras (Kg)</th>      
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
+                                                <td colspan="4">Total Uang (Rupiah)</td>
+                                                <th>Uang</th>
                                             </tr>
                                           </tfoot>
                                     </table>
@@ -113,12 +108,12 @@
 					{data: 'warga.rt',},
 					{data: 'jumlah_uang',},
                     // {data: 'created_by', },
-					{
-						data: 'action', 
-						name: 'action', 
-						orderable: true, 
-						searchable: true
-					},
+					// {
+					// 	data: 'action', 
+					// 	name: 'action', 
+					// 	orderable: true, 
+					// 	searchable: true
+					// },
 				],
                 buttons: [
                     // 'copy', 'csv', 'excel', 'pdf', 'print',
@@ -135,8 +130,8 @@
                         }
                     },
                 ],
-
                 "footerCallback":function(row, data){
+                    var a = ''
                         var api = this.api(), data;
                         var intVal = function(i){
                           return typeof i === 'string' ?
@@ -146,15 +141,13 @@
                         };
                         pQty = api.column( 4, {page: 'current'} )
                             .data().reduce( function (a,b){
-                              return intVal(a) + intVal(b);
-                            }, 0)
+                              return  intVal(a) + intVal(b) ;
+                            }, 0  )
                         $(api.column(4).footer()).html(
                           pQty
                         )  
                          
                     }
-                    
-    
 			});
 
             $('input[name=rt]').on( 'keyup', function () {
@@ -164,6 +157,7 @@
                     .draw();
             } );
 
+            
             
 </script>
 @endpush

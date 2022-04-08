@@ -134,17 +134,8 @@
                             columns: [ 0, 1, 2, 5 ]
                         }
                     },
-                ]
-			});
-
-            $('input[name=rt]').on( 'keyup', function () {
-                table
-                    .column( 2)
-                    .search( this.value )
-                    .draw();
-            } );
-
-            "footerCallback":function(row, data){
+                ],
+                "footerCallback":function(row, data){
                         var api = this.api(), data;
                         var intVal = function(i){
                           return typeof i === 'string' ?
@@ -161,6 +152,16 @@
                         )  
                          
                     }
+			});
+
+            $('input[name=rt]').on( 'keyup', function () {
+                table
+                    .column( 2)
+                    .search( this.value )
+                    .draw();
+            } );
+
+            
             
 </script>
 @endpush

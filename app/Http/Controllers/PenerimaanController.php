@@ -56,9 +56,7 @@ class PenerimaanController extends Controller
     {
         if($request->ajax()){
 
-        $data = Zakat::with(['warga'])->where('jenis_zakat', '1')->get();
-
-        return $data;
+        $data = Zakat::with(['warga'])->where('jenis_zakat', '1');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
@@ -86,31 +84,33 @@ class PenerimaanController extends Controller
 
     public function uang(Request $request)
     {
+       
         if($request->ajax()){
 
-        $data = Zakat::with(['warga'])->where('jenis_zakat', '2');
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                $actionBtn = '
-                <div class="">
-                <a href="'.route('admin:penerimaan-zakat.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Penerimaan"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                <a href="'.route('admin:penerimaan-zakat.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Penerimaan" ><i class="fa fa-trash mr-1"></i> Hapus</a>
-                </div>';
-                return $actionBtn;
-            })
+            $data = Zakat::with(['warga'])->where('jenis_zakat', '2');
+    
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '
+                    <div class="">
+                    <a href="'.route('admin:penerimaan-zakat.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Penerimaan"><i class="fa fa-pencil mr-1" ></i>Edit</a>
+                    <a href="'.route('admin:penerimaan-zakat.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Penerimaan" ><i class="fa fa-trash mr-1"></i> Hapus</a>
+                    </div>';
+                    return $actionBtn;
+                })
+    
+                ->addColumn('jenis', function($a){
+                    if($a->jenis_zakat == 1){
+                        return 'Beras';
+                    } else {
+                        return 'Uang';
+                    }
+                })
+                ->rawColumns(['action',])
+                ->make(true);
+            }
 
-            ->addColumn('jenis', function($a){
-                if($a->jenis_zakat == 1){
-                    return 'Beras';
-                } else {
-                    return 'Uang';
-                }
-            })
-            ->rawColumns(['action',])
-            ->make(true);
-        }
-            
         return view('admin.penerimaan-zakat.uang');
     }
 

@@ -36,16 +36,18 @@ class ZakatController extends Controller
      */
     public function store(Request $request)
     {
+
+        // return $request->all();
   
             if($request->jenis_zakat == 1){
-                $warga = Warga::find($request->warga_id)->first();
+                $warga = Warga::where('id',$request->warga_id)->first();
                 $jumlah_muzaki = $warga->jumlah_muzaki;
                 $jumlah_beras = $jumlah_muzaki*2.5;
 
                 $jumlah_uang = '-';
 
             } else if ($request->jenis_zakat == 2){
-                $warga = Warga::find($request->warga_id)->first();
+                $warga = Warga::where('id',$request->warga_id)->first();
                 $jumlah_muzaki = $warga->jumlah_muzaki;
                 $jumlah_uang = $jumlah_muzaki*$request->uang;
 
@@ -55,7 +57,6 @@ class ZakatController extends Controller
         Zakat::create([
             'warga_id' => $request->warga_id, 
             'jenis_zakat' => $request->jenis_zakat,
-            'beras' => $request->beras,
             'uang' => $request->uang,
             'jumlah_beras' => $jumlah_beras,
             'jumlah_uang' => $jumlah_uang,
