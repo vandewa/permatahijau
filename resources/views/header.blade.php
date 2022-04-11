@@ -39,7 +39,7 @@
               "fixEffect": "slide"
             }'>
     <div class="header-section">
-      <!-- Topbar -->
+      {{-- <!-- Topbar -->
       <div class="container header-hide-content">
         <nav class="js-mega-menu navbar navbar-expand-lg z-index-999">
           <!-- Responsive Toggle Button -->
@@ -63,16 +63,18 @@
           <!-- End Responsive Toggle Button -->
         </nav>
       </div>
-      <!-- End Topbar -->
+      <!-- End Topbar --> --}}
 
       <div id="logoAndNav" class="container">
         <!-- Nav -->
         <nav class="js-mega-menu navbar navbar-expand-lg">
           <!-- Logo -->
-          <a class="navbar-brand" href="./index.html" aria-label="Front">
-            {{-- <img src="{{ asset('front/assets/image/logo.svg')}}" alt="Logo"> --}}
-             <img style="width:300px;" src="{{ url('front/assets/image/logo.png')}}">
-          </a>
+          <div class="mr-5">
+            <a class="navbar-brand" href="{{ route('beranda') }}" aria-label="Front">
+              {{-- <img src="{{ asset('front/assets/image/logo.svg')}}" alt="Logo"> --}}
+               <img style="width:250px;" src="{{ url('front/assets/image/logo.png')}}">
+            </a>
+            </div>
           <!-- End Logo -->
 
           <!-- Responsive Toggle Button -->

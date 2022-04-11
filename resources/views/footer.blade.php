@@ -7,7 +7,7 @@
       <div class="space-1">
         <!-- Copyright -->
         <div class="w-md-75 text-lg-center mx-lg-auto">
-          <p class="text-muted small">&copy; Danang Hari Purnomo ♦ Devandewa. {{ Carbon\Carbon::now()->isoFormat('Y') }}. All rights reserved.</p>
+          <p class="text-muted small">&copy; Danang Hari Purnomo ♦ Devandewa. {{ Carbon\Carbon::now()->isoFormat('Y') }}.</p>
         </div>
         <!-- End Copyright -->
       </div>
