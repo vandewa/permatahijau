@@ -92,7 +92,7 @@
   <!-- End Hero Section -->
 
   <!-- Testimonials Section -->
-  <div id="learnSection" class="container space-2 space-lg-3">
+  <div id="pengertianZakat" class="container space-2 space-lg-3">
     <div class="overflow-hidden">
       <div class="container space-bottom-2">
         <div class="row justify-content-lg-center align-items-md-center">
@@ -133,7 +133,7 @@
 
 
   <!-- Signup Form Section -->
-  <div id="hireUsSection" class="bg-dark rounded mx-3 mx-xl-10" style="background-image: url({{ asset('front/assets/image/bg.jpg')}}); background-size: cover;
+  <div id="bayarZakat" class="bg-dark rounded mx-3 mx-xl-10" style="background-image: url({{ asset('front/assets/image/bg.jpg')}}); background-size: cover;
     background-position: center center;">
     <div class="container-xl container-fluid space-1 space-md-2 px-4 px-md-8 px-lg-10">
       <div class="row justify-content-lg-between align-items-lg-center">

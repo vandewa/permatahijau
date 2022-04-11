@@ -106,10 +106,10 @@
                   <a class="nav-link" href="#featuresSection">Features</a>
                 </li> --}}
                 <li class="navbar-nav-item">
-                  <a class="nav-link" href="#learnSection">Pengertian Zakat Fitrah</a>
+                  <a class="nav-link" href="#pengertianZakat">Pengertian Zakat Fitrah</a>
                 </li>
                 <li class="navbar-nav-item">
-                  <a class="nav-link" href="#hireUsSection">Bayar Zakat</a>
+                  <a class="nav-link" href="#bayarZakat">Bayar Zakat</a>
                 </li>
                 <li class="header-nav-last-item ml-lg-2">
                   <a class="btn btn-success btn-sm btn-pill transition-3d-hover" href="{{ url('/login')}}">Login</a>
