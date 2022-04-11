@@ -103,6 +103,40 @@ class WargaController extends Controller
      */
     public function update(Request $request, $id)
     {
+ 
+        $cek = Zakat::with('warga')->where('warga_id', $id)->first();
+
+        // return $cek;
+
+        if(!empty($cek)){
+            if($cek->warga->jumlah_muzaki != $request->jumlah_muzaki){
+                if($cek->jumlah_beras == 0){
+                   $jumlah_uang =  $cek->uang*$request->jumlah_muzaki;
+
+                   Zakat::where('warga_id', $id)
+                   ->update([
+                        'jumlah_uang' => $jumlah_uang,
+                   ]);
+
+                } else if($cek->jumlah_uang == 0){
+                    $hitung =  $cek->jumlah_beras/$cek->warga->jumlah_muzaki;
+                    $jumlah_beras = $hitung*$request->jumlah_muzaki;
+
+                    Zakat::where('warga_id', $id)
+                   ->update([
+                        'jumlah_beras' => $jumlah_beras,
+                   ]);
+                }
+
+            } 
+            // else {
+            //     return 'muzaki tetap';
+            // }
+        } 
+        // else {
+        //     return 'tidak perlu update jumlah';
+        // }
+
         Warga::find($id)->update([
             'nama' => ucwords($request->nama),
             'rt' => $request->rt,

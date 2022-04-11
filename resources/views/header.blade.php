@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="shortcut icon" href="{{ asset('front/assets/image/logo.ico')}}">
+
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -21,6 +22,8 @@
   <link rel="stylesheet" href="{{ asset('front/assets/vendor/slick-carousel/slick/slick.css')}}">
   <link rel="stylesheet" href="{{ asset('front/assets/vendor/aos/dist/aos.css')}}">
   <link rel="stylesheet" href="{{ asset('front/assets/vendor/select2/dist/css/select2.min.css')}}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
+
 
 
   

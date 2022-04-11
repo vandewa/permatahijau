@@ -49,7 +49,7 @@
                 </div>
                 <div class="p-2 bg-gradient-x-warning white media-body">
                   <h5>Total Beras</h5>
-                  <h5 class="text-bold-400 mb-0"><i class="feather icon-arrow-down"></i> {{ $beras }}</h5>
+                  <h5 class="text-bold-400 mb-0"><i class="feather icon-inbox"></i> {{ $beras }}</h5>
                 </div>
               </div>
             </div>

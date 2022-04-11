@@ -30,7 +30,7 @@
                         Tambah Penerima
                     </a> -->
                     <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
-                        <option value="">--Pilih--</option>
+                        <option value="">--Pilih Menu--</option>
                         <option value="{{ route('admin:penerima-zakat.create') }}">Tambah Penerima</option>
                         <option value="{{ route('admin:cetak.rt1') }}"> Cetak RT 1</option>
                         <option value="{{ route('admin:cetak.rt2') }}"> Cetak RT 2</option>

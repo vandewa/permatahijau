@@ -7,42 +7,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description"
-        content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords"
-        content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <link rel="shortcut icon" href="{{ asset('front/assets/image/logo.ico')}}">
+    <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>@yield('title')</title>
-    <link rel="apple-touch-icon" href="{{ asset('image/pemda.ico')}}">
-    <link rel="shortcut icon" href="{{ asset('image/pemda.ico')}}">
-    <link
-        href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/assets/css/image-uploader.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/extensions/unslider.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/extensions/unslider.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/fonts/meteocons/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/charts/morris.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css')}}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('stack-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
 
     <!-- END: Vendor CSS-->
 
@@ -112,7 +100,7 @@
                             class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
                                 class="feather icon-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="#"><img class="brand-logo" alt="stack admin logo"
-                                src="{{ asset('image/pemda.png')}}" style="width:10%;">
+                                src="{{ asset('front/assets/image/permata.png')}}" style="width:15%;">
                             <h2 class="brand-text">SIUPH</h2>
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
@@ -139,7 +127,7 @@
                                 <a class="dropdown-item" href="{{ route('user.password') }}"><i
                                         class="fa fa-expeditedssl"></i> Ganti Password</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item"
-                                    href="{{ route('keluar') }}"><i class="feather icon-power"></i> Logout</a>
+                                    href="{{ route('beranda') }}"><i class="feather icon-power"></i> Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -170,7 +158,7 @@
                             class="menu-title" data-i18n="Data Ormas">Data Ormas</span></a>
                 </li> --}}
                 <li class="nav-item {{ request()->routeIs('admin:pemberi-zakat*') ? 'active' : '' }}"><a
-                        href="{{ route('admin:pemberi-zakat.index') }}"><i class="feather icon-list"></i><span
+                        href="{{ route('admin:pemberi-zakat.index') }}"><i class="feather icon-award"></i><span
                             class="menu-title" data-i18n="Data Pemberi">Data Pemberi</span></a>
                 </li>
 
@@ -204,7 +192,7 @@
                         data-toggle="tooltip" data-placement="right" data-original-title="Warga"></i>
                 </li>
                 <li class=" nav-item {{ request()->routeIs('admin:belanja-beras*') ? 'active' : '' }}"><a
-                        href="{{ route('admin:belanja-beras.index') }}"><i class="feather icon-user"></i><span
+                        href="{{ route('admin:belanja-beras.index') }}"><i class="feather icon-shopping-cart"></i><span
                             class="menu-title" data-i18n="Konversi Uang ke Beras">Belanja / Donasi</span></a>
                 </li>
 
@@ -304,17 +292,15 @@
     <script src="{{ asset('stack-admin/app-assets/js/Animated.js')}}"></script>
 
     <script src="{{ asset('stack-admin/app-assets/js/scripts/tables/datatables/datatable-advanced.js')}}"></script>
-    <script
-        src="{{ asset('stack-admin/app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
-
     <script src="{{ asset('stack-admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
-
     <script src="{{ asset('stack-admin/app-assets/js/scripts/tooltip/tooltip.js')}}"></script>
-
     <script src="{{ asset('stack-admin/assets/js/pickers/picker_date.js')}}"></script>
     <script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
     <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+
 
     <script>
         $(function () {
@@ -404,6 +390,49 @@
             })
         });
     </script>
+
+<script>
+    $(document).on('click', '.delete-data-table', function (a) {
+        a.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you realy want to delete this records? This process cannot be undone.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete!'
+        }).then((result) => {
+            if (result.value) {
+                a.preventDefault();
+                var url = $(this).attr('href');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    method: 'delete',
+                    success: function () {
+                        Swal.fire(
+                            'Deleted!',
+                            'data has been deleted.',
+                            'success'
+                        )
+                        table.ajax.reload();
+                        // location.reload();
+                        if (typeof table2) {
+                            table2.ajax.reload();
+                            // location.reload();
+                        }
+                    }
+                })
+            }
+        })
+    });
+</script>
 
     <!-- END: Page JS-->
 

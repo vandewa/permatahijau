@@ -37,7 +37,12 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label>Jumlah Beras (kg) :</label>
-                {{Form::number('jumlah_beras', null, ['class' => 'form-control required', 'placeholder' => 'kg'])}}
+                <div class="input-group">
+                    {{Form::text('jumlah_beras', null, ['class' => 'form-control required'])}}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">

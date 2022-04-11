@@ -77,7 +77,7 @@ class ZakatController extends Controller
         $belanja->saldo = $saldo;
         $belanja->save();
 
-        return redirect(route('beranda'));
+        return redirect(route('beranda'))->with('status', 'oke');
     }
 
     /**

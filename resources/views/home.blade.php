@@ -159,14 +159,7 @@
                   zakat. Dan segala kebaikan yang kamu kerjakan untuk dirimu, kamu akan mendapatkannya (pahala) di sisi
                   Allah. Sungguh, Allah Maha Melihat apa yang kamu kerjakan"</em></blockquote>
               {{-- <span class="h5 text-white">Al-Qur'an</span> --}}
-              <small class="d-block text-white-70"><b>(QS. Al-Baqarah:110)</b></small>
-            </div>
-
-            <div class="js-slide">
-              <blockquote class="h3 text-white font-weight-normal mb-4"><em>"Dan pada harta benda mereka ada hak untuk
-                  orang miskin yang meminta dan orang miskin yang tidak meminta"</em></blockquote>
-              {{-- <span class="h5 text-white">Al-Qur'an</span> --}}
-              <small class="d-block text-white-70"><b>(QS. Az-Zariyat:92)</b></small>
+              <small class="d-block text-white-70"><b>(QS Al-Baqarah 2:110)</b></small>
             </div>
 
             <div class="js-slide">
@@ -174,8 +167,17 @@
                   membersihkan dan menyucikan mereka, dan berdoalah untuk mereka. Sesungguhnya doamu itu (menumbuhkan)
                   ketenteraman jiwa bagi mereka. Allah Maha Mendengar, Maha Mengetahui"</em></blockquote>
               {{-- <span class="h5 text-white">Al-Qur'an</span> --}}
-              <small class="d-block text-white-70"><b>(QS. At-Taubah:103)</b></small>
+              <small class="d-block text-white-70"><b>(QS At-Taubah 9:103)</b></small>
             </div>
+
+            <div class="js-slide">
+              <blockquote class="h3 text-white font-weight-normal mb-4"><em>"Dan pada harta benda mereka ada hak untuk
+                  orang miskin yang meminta dan orang miskin yang tidak meminta"</em></blockquote>
+              {{-- <span class="h5 text-white">Al-Qur'an</span> --}}
+              <small class="d-block text-white-70"><b>(QS Adz Dzariyat 51:19)</b></small>
+            </div>
+
+            
 
           </div>
           <!-- End Carousel Main -->
@@ -336,4 +338,19 @@
       }
     });
   });
+</script>
+
+<script type="text/javascript">
+    function sweetAlert() 
+    {  
+
+    Swal.fire(
+    'Berhasil dikirim!',
+    'Terima kasih, semoga Allah SWT merahmati kita. Aminn',
+    'success')
+    }
+
+    @if(session('status'))
+    sweetAlert();
+    @endif
 </script>

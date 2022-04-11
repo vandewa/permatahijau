@@ -30,7 +30,7 @@
                         Cetak Pdf
                     </a> -->
                     <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
-                        <option value="">--Pilih--</option>
+                        <option value="">--Pilih Menu--</option>
                         <option value="{{ route('admin:cetak.zakat') }}">Cetak Pemberi</option>
                         <option value="{{ route('admin:cetak.zakat.beras') }}">Beras</option>
                         <option value="{{ route('admin:cetak.zakat.uang') }}"> Uang</option>

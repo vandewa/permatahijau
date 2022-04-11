@@ -7,7 +7,7 @@
       <div class="space-1">
         <!-- Copyright -->
         <div class="w-md-75 text-lg-center mx-lg-auto">
-          <p class="text-muted small">&copy; Devandewa. 2022. All rights reserved.</p>
+          <p class="text-muted small">&copy; Danang Hari Purnomo. {{ Carbon\Carbon::now()->isoFormat('Y') }}. All rights reserved.</p>
         </div>
         <!-- End Copyright -->
       </div>
@@ -53,6 +53,8 @@
   <script src="{{ asset('front/assets/vendor/slick-carousel/slick/slick.js')}}"></script>
   <script src="{{ asset('front/assets/vendor/aos/dist/aos.js')}}"></script>
   <script src="{{ asset('front/assets/vendor/select2/dist/js/select2.full.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+
   
 
 
