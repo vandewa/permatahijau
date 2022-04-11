@@ -18,14 +18,13 @@ class ComCodeSeeder extends Seeder
         DB::table('com_codes')->truncate();
         $data = [
             ['code_cd' => 'ROLE_ST_01', 'code_nm' => 'Superadmin', 'code_group' => 'ROLE_ST', 'code_value' => ''],
-            ['code_cd' => 'ROLE_ST_02', 'code_nm' => 'Admin Kesbangpol', 'code_group' => 'ROLE_ST', 'code_value' => ''],
-            ['code_cd' => 'ROLE_ST_03', 'code_nm' => 'Admin Ormas', 'code_group' => 'ROLE_ST', 'code_value' => ''],
-           
+            ['code_cd' => 'ROLE_ST_02', 'code_nm' => 'Admin', 'code_group' => 'ROLE_ST', 'code_value' => ''],
+            ['code_cd' => 'ROLE_ST_03', 'code_nm' => 'Admin', 'code_group' => 'ROLE_ST', 'code_value' => ''],
+
         ];
 
         foreach ($data as $datum) {
             ComCode::create($datum);
         }
-
     }
 }

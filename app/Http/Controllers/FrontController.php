@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Warga;
-use DataTables;
+use App\Models\Zakat;
+use Illuminate\Support\Facades\DB;
+
 
 
 class FrontController extends Controller
@@ -16,9 +18,15 @@ class FrontController extends Controller
      */
     public function index()
     {
+        $cek = DB::table('zakat')->count();
+        if ($cek == 0) {
+            $saldo = 0;
+        } else {
+            $saldo = Zakat::orderBy('updated_at', 'desc')->first()->jumlah_uang;
+        }
         $warga = Warga::orderBy('kepala_kk', 'asc')->pluck('kepala_kk', 'id');
 
-        return view('home', compact('warga'));
+        return view('home', compact('warga', 'saldo'));
     }
 
     /**

@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrmasController;
 use App\Http\Controllers\KegiatanOrmasController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PenerimaanController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\PemberiController;
+use App\Http\Controllers\PenerimaanController;
+use App\Http\Controllers\BelanjaBerasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,12 +48,24 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::put('management-users/{id}/edit', [UserController::class, 'passwordUpdate'])->name('ganti.password');
         Route::resource('management-user', UserController::class);
 
-        Route::resource('penerimaan-zakat', PenerimaanController::class);
-        Route::resource('warga', WargaController::class);
-        Route::get('beras', [PenerimaanController::class, 'beras'])->name('beras');
-        Route::get('uang', [PenerimaanController::class, 'uang'])->name('uang');
 
-       
+        Route::get('cetak-zakat-beras', [PemberiController::class, 'CetakZakatBeras'])->name('cetak.zakat.beras');
+        Route::get('cetak-zakat-uang', [PemberiController::class, 'CetakZakatUang'])->name('cetak.zakat.uang');
+        Route::get('pemberi-zakat/cetak', [PemberiController::class, 'cetakPemberi'])->name('cetak.zakat');
+        Route::get('penerima-zakat/rt1/cetak', [PenerimaanController::class, 'rt1'])->name('cetak.rt1');
+        Route::get('penerima-zakat/rt2/cetak', [PenerimaanController::class, 'rt2'])->name('cetak.rt2');
+        Route::get('penerima-zakat/rt3/cetak', [PenerimaanController::class, 'rt3'])->name('cetak.rt3');
+        Route::get('penerima-zakat/rt4/cetak', [PenerimaanController::class, 'rt4'])->name('cetak.rt4');
+        Route::get('penerima-zakat/rt5/cetak', [PenerimaanController::class, 'rt5'])->name('cetak.rt5');
+        Route::get('penerima-zakat/semuart/cetak', [PenerimaanController::class, 'semuart'])->name('cetak.semuart');
+        Route::get('cetak-laporan', [PemberiController::class, 'cetaklaporan'])->name('cetak.laporan');
+
+        Route::resource('penerima-zakat', PenerimaanController::class);
+        Route::resource('pemberi-zakat', PemberiController::class);
+        Route::resource('warga', WargaController::class);
+        Route::resource('belanja-beras', BelanjaBerasController::class);
+        Route::get('beras', [PemberiController::class, 'beras'])->name('beras');
+        Route::get('uang', [PemberiController::class, 'uang'])->name('uang');
     });
 });
 

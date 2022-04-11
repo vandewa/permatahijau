@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Warga;
+use App\Models\Zakat;
 use DataTables;
 
 
@@ -16,26 +17,26 @@ class WargaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
 
             $data = Warga::select('*');
-    
+
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
                     $actionBtn = '
                     <div class="">
-                    <a href="'.route('admin:warga.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                    <a href="'.route('admin:warga.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
+                    <a href="' . route('admin:warga.edit', $row->id) . ' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
+                    <a href="' . route('admin:warga.destroy', $row->id) . ' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
                     </div>';
                     return $actionBtn;
                 })
-                
+
                 ->rawColumns(['action',])
                 ->make(true);
-            }
+        }
 
-            return view('admin.warga.index');
+        return view('admin.warga.index');
     }
 
     /**
@@ -45,7 +46,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.warga.create');
     }
 
     /**
@@ -56,7 +57,17 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+
+        Warga::create([
+            'nama' => ucwords($request->nama),
+            'rt' => $request->rt,
+            'blok' => $request->blok,
+            'nomor' => $request->nomor,
+            'jumlah_muzaki' => $request->jumlah_muzaki,
+            'kepala_kk' => ucwords($request->nama),
+        ]);
+
+        return redirect(route('admin:warga.index'))->with('status', 'Warga berhasil ditambah');
     }
 
     /**
@@ -78,7 +89,9 @@ class WargaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Warga::find($id);
+
+        return view('admin.warga.edit', compact('data'));
     }
 
     /**
@@ -90,7 +103,16 @@ class WargaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Warga::find($id)->update([
+            'nama' => ucwords($request->nama),
+            'rt' => $request->rt,
+            'blok' => $request->blok,
+            'nomor' => $request->nomor,
+            'jumlah_muzaki' => $request->jumlah_muzaki,
+            'kepala_kk' => ucwords($request->nama),
+        ]);
+
+        return redirect(route('admin:warga.index'))->with('status', 'Data warga berhasil diubah');
     }
 
     /**
@@ -101,14 +123,14 @@ class WargaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $a = Warga::find($id);
+        Zakat::where('warga_id', $a->id)->delete();
+        Warga::destroy($id);
     }
 
     public function getWarga($id = 0)
-{
-    $data = Warga::where('id',$id)->first();
-    return response()->json($data);
-
-    
-}
+    {
+        $data = Warga::where('id', $id)->first();
+        return response()->json($data);
+    }
 }

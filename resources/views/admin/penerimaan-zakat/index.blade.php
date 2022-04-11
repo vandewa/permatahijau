@@ -1,45 +1,57 @@
-@section('title', 'Data Penerimaan Zakat')
+@section('title', 'Data Penerima Zakat')
 @extends('layout.main')
 @section('content')
-  <!-- BEGIN: Content-->
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title mb-0">Data Penerimaan</h3>
-                    <div class="row breadcrumbs-top">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#">Data Penerimaan</a>
-                                </li>
-                            </ol>
-                        </div>
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <h3 class="content-header-title mb-0">Data Penerima</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#">Data Penerima</a>
+                            </li>
+                        </ol>
                     </div>
                 </div>
-                <div class="content-header-right text-md-right col-md-6 col-12">
-                    <div class="form-group">
-                       <a href="{{ route('admin:kegiatan-ormas.create') }}" class="btn btn-lg round mr-1 mb-1" style="color: rgb(255, 255, 255);
+            </div>
+            <div class="content-header-right text-md-right col-md-6 col-12">
+                <div class="form-group">
+                    <!-- <a href="{{ route('admin:penerima-zakat.create') }}" class="btn btn-lg round mr-1 mb-1"
+                        style="color: rgb(255, 255, 255);
                        box-shadow: none;
                        background-color: rgb(51, 88, 244) !important;
                        background-image: linear-gradient(to left bottom, rgb(29, 140, 248), rgb(51, 88, 244), rgb(29, 140, 248)) !important;">
-                       <i class="fa fa-plus-circle"></i>
-                        Tambah Data Penerimaan
-                    </a>
-                    </div>
+                        <i class="fa fa-download"></i>
+                        Tambah Penerima
+                    </a> -->
+                    <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+                        <option value="">--Pilih--</option>
+                        <option value="{{ route('admin:penerima-zakat.create') }}">Tambah Penerima</option>
+                        <option value="{{ route('admin:cetak.rt1') }}"> Cetak RT 1</option>
+                        <option value="{{ route('admin:cetak.rt2') }}"> Cetak RT 2</option>
+                        <option value="{{ route('admin:cetak.rt3') }}"> Cetak RT 3</option>
+                        <option value="{{ route('admin:cetak.rt4') }}"> Cetak RT 4</option>
+                        <option value="{{ route('admin:cetak.rt5') }}"> Cetak RT 5</option>
+                        <option value="{{ route('admin:cetak.semuart') }}"> Cetak Semua RT</option>
+
+                    </select>
                 </div>
             </div>
+        </div>
 
-            @if(session('status'))
-            <div class="alert bg-success text-white alert-styled-left alert-dismissible mt-1" >
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                {{ session('status') }}
-            </div>
-            @endif
-            
-            <div class="content-body">
+        @if(session('status'))
+        <div class="alert bg-success text-white alert-styled-left alert-dismissible mt-1">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            {{ session('status') }}
+        </div>
+        @endif
+
+        <div class="content-body">
             <!-- File export table -->
             <section id="file-export">
                 <div class="row">
@@ -47,7 +59,7 @@
                         <div class="card">
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <form action="">
+                                    <!-- <form action="">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group row">
@@ -55,23 +67,23 @@
                                                         RT
                                                     </label>
                                                     <div class="col-md-9">
-                                                        {{Form::text('rt',null,['class' => 'name form-control', 'placeholder' => 'Nomor RT'])}}
+                                                        {{Form::text('rt',null,['class' => 'name form-control',
+                                                        'placeholder' => 'Nomor RT'])}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
-                                    <hr>
+                                    <hr> -->
                                     <table class="table table-striped table-bordered devan">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>No</th>
-                                                <th>Nama Kepala Keluarga</th>
+                                                <th>Nama Penerima</th>
                                                 <th>RT</th>
-                                                <th>Jenis Zakat</th>
+                                                <th>Blok</th>
+                                                <th>Nomor Rumah</th>
                                                 <th>Beras (Kg)</th>
-                                                <th>Nominal Uang (Rp)</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -91,52 +103,51 @@
 @endsection
 
 @push('js')
-<script type="text/javascript">			
-			var table = $('.devan').DataTable({
-				processing: true,
-				serverSide: true,
-                ajax: window.location.href,
-                dom: 'Bfrtip',
-                "order": [[ 1, "desc" ]],
-				columns: [
-					{ data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false, className: "text-left"},
-					{data: 'id', visible:false},
-					{data: 'warga.nama'},
-					{data: 'warga.rt',},
-					{data: 'jenis', defaultContent: "-"},
-					{data: 'jumlah_beras',},
-					{data: 'jumlah_uang',},
-                    // {data: 'created_by', },
-					{
-						data: 'action', 
-						name: 'action', 
-						orderable: true, 
-						searchable: true
-					},
-				],
-                buttons: [
-                    // 'copy', 'csv', 'excel', 'pdf', 'print',
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: [ 1,2 ]
-                        }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 5 ]
-                        }
-                    },
-                ]
-			});
+<script type="text/javascript">
+    var table = $('.devan').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: window.location.href,
+        dom: 'Bfrtip',
+        "order": [[1, "desc"]],
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, className: "text-left" },
+            { data: 'nama', defaultContent: "-" },
+            { data: 'rt', defaultContent: "-" },
+            { data: 'blok', defaultContent: "-" },
+            { data: 'no', defaultContent: "-" },
+            { data: 'jumlah_beras', },
+            // {data: 'created_by', },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        buttons: [
+            // 'copy', 'csv', 'excel', 'pdf', 'print',
+            // {
+            //     extend: 'pdfHtml5',
+            //     exportOptions: {
+            //         columns: [1, 2]
+            //     }
+            // },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 5]
+                }
+            },
+        ]
+    });
 
-            $('input[name=rt]').on( 'keyup', function () {
-                table
-                    .column( 2)
-                    .search( this.value )
-                    .draw();
-            } );
-            
+    // $('input[name=rt]').on('keyup', function () {
+    //     table
+    //         .column(2)
+    //         .search(this.value)
+    //         .draw();
+    // });
+
 </script>
 @endpush

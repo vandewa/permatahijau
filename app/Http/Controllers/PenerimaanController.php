@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Zakat;
 use App\Models\Warga;
+use App\Models\Penerima;
 use DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 
 class PenerimaanController extends Controller
@@ -17,32 +20,26 @@ class PenerimaanController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
 
-        $data = Zakat::with(['warga'])->select('*');
+            $data = Penerima::whereNotNull('nama');
 
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                $actionBtn = '
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '
                 <div class="">
-                <a href="'.route('admin:penerimaan-zakat.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Penerimaan"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                <a href="'.route('admin:penerimaan-zakat.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Penerimaan" ><i class="fa fa-trash mr-1"></i> Hapus</a>
+                <a href="' . route('admin:penerima-zakat.destroy', $row->id) . ' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Pemberi" ><i class="fa fa-trash mr-1"></i> Hapus</a>
                 </div>';
-                return $actionBtn;
-            })
-
-            ->addColumn('jenis', function($a){
-                if($a->jenis_zakat == 1){
-                    return 'Beras';
-                } else {
-                    return 'Uang';
-                }
-            })
-            ->rawColumns(['action',])
-            ->make(true);
+                    return $actionBtn;
+                })
+                ->editColumn('nama', function ($a) {
+                    return ucwords($a->nama);
+                })
+                ->rawColumns(['action',])
+                ->make(true);
         }
-            
+
         return view('admin.penerimaan-zakat.index');
     }
 
@@ -52,74 +49,29 @@ class PenerimaanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function beras(Request $request)
-    {
-        if($request->ajax()){
-
-        $data = Zakat::with(['warga'])->where('jenis_zakat', '1');
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                $actionBtn = '
-                <div class="">
-                <a href="'.route('admin:penerimaan-zakat.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Penerimaan"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                <a href="'.route('admin:penerimaan-zakat.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Penerimaan" ><i class="fa fa-trash mr-1"></i> Hapus</a>
-                </div>';
-                return $actionBtn;
-            })
-
-            ->addColumn('jenis', function($a){
-                if($a->jenis_zakat == 1){
-                    return 'Beras';
-                } else {
-                    return 'Uang';
-                }
-            })
-            ->rawColumns(['action',])
-            ->make(true);
-        }
-            
-        return view('admin.penerimaan-zakat.beras');
-    }
-
-    public function uang(Request $request)
-    {
-       
-        if($request->ajax()){
-
-            $data = Zakat::with(['warga'])->where('jenis_zakat', '2');
-    
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '
-                    <div class="">
-                    <a href="'.route('admin:penerimaan-zakat.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Penerimaan"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                    <a href="'.route('admin:penerimaan-zakat.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Penerimaan" ><i class="fa fa-trash mr-1"></i> Hapus</a>
-                    </div>';
-                    return $actionBtn;
-                })
-    
-                ->addColumn('jenis', function($a){
-                    if($a->jenis_zakat == 1){
-                        return 'Beras';
-                    } else {
-                        return 'Uang';
-                    }
-                })
-                ->rawColumns(['action',])
-                ->make(true);
-            }
-
-        return view('admin.penerimaan-zakat.uang');
-    }
 
     public function create()
     {
-        $ormas = Ormas::pluck('nama_organisasi', 'id');
-        $foto = FotoKegiatan::where('id_kegiatan_ormas', 'a')->get();
 
-        return view('admin.kegiatan-ormas.create', compact('foto'))->with('ormas', $ormas);
+        $cek = DB::table('penerima')->count();
+        if ($cek == 0) {
+            $beras = 0;
+            $datanya = DB::table('warga')
+                ->leftJoin('zakat', 'warga.id', '=', 'zakat.warga_id')
+                ->whereNotNull('jumlah_uang')
+                ->orderBy('rt', 'asc')
+                ->orderBy('kepala_kk', 'asc')
+                ->get();
+
+            foreach ($datanya as $aa) {
+                $beras = $beras + $aa->jumlah_beras;
+            }
+        } else {
+            $datanya = Penerima::orderby('updated_at', 'desc')->first();
+            $beras = $datanya->stok;
+        }
+
+        return view('admin.penerimaan-zakat.create', compact('beras'));
     }
 
     /**
@@ -130,33 +82,23 @@ class PenerimaanController extends Controller
      */
     public function store(Request $request)
     {
+        $cek = DB::table('penerima')->count();
+        if ($cek == 0) {
+            $stok = $request->beras - $request->jumlah_beras;
+        } else {
+            $stok = $request->stok - $request->jumlah_beras;
+        }
 
-        $b = KegiatanOrmas::create([
-            'id_ormas' => $request->id_ormas,
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'tanggal' => date("Y-m-d", strtotime($request->tanggal)),
-            'deskripsi' => $request->deskripsi,  
+        Penerima::create([
+            'nama' => $request->nama,
+            'rt' => $request->rt,
+            'blok' => $request->blok,
+            'no' => $request->no,
+            'jumlah_beras' => $request->jumlah_beras,
+            'stok' => $stok,
         ]);
 
-
-        if($request->hasfile('images')){
-            $files = $request->file('images');
-            $prefix = date('Ymdhis');
-            $no = 1;
-                foreach($files as $a){
-                    $extension = $a->extension();
-                    $filename = $prefix.'-'.$no.'.'.$extension;
-                    $a->move(public_path('/uploads'), $filename);
-                    $foto = new FotoKegiatan();
-                    $foto->id_kegiatan_ormas = $b->id;
-                    $foto->images = $filename;
-                    $foto->save();
-
-                    $no++;
-                    }
-            }
-
-            return redirect(route('admin:kegiatan-ormas.index'))->with('status', 'Kegiatan ormas berhasil ditambah');
+        return redirect(route('admin:penerima-zakat.index'))->with('status', 'Penerima berhasil ditambah');
     }
 
     /**
@@ -178,13 +120,28 @@ class PenerimaanController extends Controller
      */
     public function edit($id)
     {
-        
-        $data = KegiatanOrmas::find($id);
-        $foto = FotoKegiatan::where('id_kegiatan_ormas', $id)->get();
-        $ormas = Ormas::pluck('nama_organisasi', 'id');
-        $tanggal = \Carbon\Carbon::parse($data->tanggal)->format('d F, Y');
 
-        return view('admin.kegiatan-ormas.edit', compact('data', 'tanggal', 'foto'))->with('ormas', $ormas);
+        $data = Penerima::find($id);
+        $cek = DB::table('penerima')->count();
+        if ($cek == 0) {
+            $beras = 0;
+            $datanya = DB::table('warga')
+                ->leftJoin('zakat', 'warga.id', '=', 'zakat.warga_id')
+                ->whereNotNull('jumlah_uang')
+                ->orderBy('rt', 'asc')
+                ->orderBy('kepala_kk', 'asc')
+                ->get();
+
+            foreach ($datanya as $aa) {
+                $beras = $beras + $aa->jumlah_beras;
+            }
+        } else {
+            $datanya = Penerima::orderby('created_at', 'desc')->first();
+            $beras = $datanya->stok;
+        }
+
+
+        return view('admin.penerimaan-zakat.edit', compact('data', 'beras'));
     }
 
     /**
@@ -196,7 +153,23 @@ class PenerimaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cek = DB::table('penerima')->count();
+        if ($cek == 0) {
+            $stok = $request->beras - $request->jumlah_beras;
+        } else {
+            $stok = $request->stok - $request->jumlah_beras;
+        }
+
+        Penerima::find($id)->update([
+            'nama' => $request->nama,
+            'rt' => $request->rt,
+            'blok' => $request->blok,
+            'no' => $request->no,
+            'jumlah_beras' => $request->jumlah_beras,
+            'stok' => $stok,
+        ]);
+
+        return redirect(route('admin:penerima-zakat.index'))->with('status', 'Data penerima berhasil diubah');
     }
 
     /**
@@ -207,8 +180,126 @@ class PenerimaanController extends Controller
      */
     public function destroy($id)
     {
-        Zakat::destroy($id);
+        $a = Penerima::find($id);
+        $b = Penerima::orderBy('updated_at', 'desc')->first();
+
+
+        $tambahan = $a->jumlah_beras + $b->stok;
+
+        Penerima::create([
+            'stok' => $tambahan,
+        ]);
+        Penerima::destroy($id);
     }
 
-    
+    public function CetakZakatUang()
+    {
+        $saldo = 0;
+        $datanya = DB::table('warga')
+            ->leftJoin('zakat', 'warga.id', '=', 'zakat.warga_id')
+            ->where('jenis_zakat', '2')
+            ->orderBy('rt', 'asc')
+            ->orderBy('kepala_kk', 'asc')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_uang;
+        }
+
+
+        // $datanya = Zakat::with(['warga'])->where('jenis_zakat', '2')->get();
+        $pdf = PDF::loadView('cetak_uang', compact('datanya', 'saldo'));
+        return $pdf->stream();
+    }
+
+    public function semuart()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('nama', '!=', null)
+            ->orderBy('rt', 'asc')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_semuart', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima Zakat.pdf');
+    }
+
+    public function rt1()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('rt', '=', 'RT 1')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_rt1', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima RT 1.pdf');
+    }
+
+    public function rt2()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('rt', '=', 'RT 2')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_rt2', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima RT 2.pdf');
+    }
+
+    public function rt3()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('rt', '=', 'RT 3')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_rt3', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima RT 3.pdf');
+    }
+
+    public function rt4()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('rt', '=', 'RT 4')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_rt4', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima RT 4.pdf');
+    }
+
+    public function rt5()
+    {
+        $saldo = 0;
+        $datanya = DB::table('penerima')
+            ->where('rt', '=', 'RT 5')
+            ->get();
+
+        foreach ($datanya as $aa) {
+            $saldo = $saldo + $aa->jumlah_beras;
+        }
+
+        $pdf = PDF::loadView('cetak_rt5', compact('datanya', 'saldo'));
+        return $pdf->download('Penerima RT 5.pdf');
+    }
 }
