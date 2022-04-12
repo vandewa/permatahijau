@@ -9,7 +9,8 @@
         <div class="col-md-6 col-lg-5 mb-11 mb-md-0">
           <div class="mb-5">
             <h1 class="display-4">Sempurnakan Puasa Dengan Zakat Fitrah</h1>
-            <p class="lead">Setiap 2.5% Zakatmu, sangat berarti bagi mereka yang membutuhkan</p>
+            <p class="lead" style="text-align:justify;">Setiap 2.5% Zakatmu, sangat berarti bagi mereka yang membutuhkan</p>
+            <p class="lead" style="text-align:justify; text-justify:auto;text-indent: 40px; font-size:17px;">Unit pengumpul zakat (UPZ )adalah satuan organisasi yang dibentuk oleh Badan Amil Zakat di semua tingkatan dengan tugas mengumpulkan zakat untuk melayani muzakki, yang berada pada desa/kelurahan, instansi-instansi pemerintah dan swasta, baik dalam negeri maupun luar negeri.</p>
           </div>
         </div>
         {{--
