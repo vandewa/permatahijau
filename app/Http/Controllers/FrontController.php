@@ -24,7 +24,8 @@ class FrontController extends Controller
         } else {
             $saldo = Zakat::orderBy('updated_at', 'desc')->first()->jumlah_uang;
         }
-        $warga = Warga::orderBy('kepala_kk', 'asc')->pluck('kepala_kk', 'id');
+        $warga = Warga::select(DB::Raw("concat(kepala_kk,' (',jumlah_muzaki,')') as opo, id"))->orderBy('kepala_kk', 'asc')->pluck('opo', 'id');
+
 
         return view('home', compact('warga', 'saldo'));
     }

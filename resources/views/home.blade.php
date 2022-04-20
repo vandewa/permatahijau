@@ -262,8 +262,9 @@
                     "placeholder": "Pilih Jenis Uang"
                     }'>
                     <option value="">--Pilih--</option>
-                    <option value="12000">Uang Rp 12.000,- / Kg</option>
-                    <option value="13000">Uang Rp 13.000,- / Kg</option>
+                    <option value="25000">Rp 25.000,- per jiwa</option>
+                    <option value="30000">Rp 30.000,- per jiwa</option>
+                    <option value="35000">Rp 35.000,- per jiwa</option>
                   </select>
                   <!-- End Select -->
                 </div>
